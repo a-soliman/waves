@@ -113,7 +113,7 @@ router.post("/login", (req, res) => {
 */
 router.get(
   "/google",
-  passport.authenticate("google", { scope: ['email', 'profile'] })
+  passport.authenticate("google", { scope: ["email", "profile"] })
 );
 
 /*
@@ -129,7 +129,7 @@ router.get("/google/redirect", passport.authenticate("google"), (req, res) => {
       errors.serverError = "Internal server error.";
       return res.status(500).json(errors);
     }
-    res.redirect('/' + `?token=Bearer ${token}`)
+    res.redirect("/" + `?token=Bearer ${token}`);
   });
 });
 
@@ -147,7 +147,10 @@ router.get(
       id: req.user.id,
       email: req.user.email,
       name: req.user.name,
-      avatar: req.user.avatar
+      avatar: req.user.avatar,
+      hitory: req.user.history,
+      cart: req.user.cart,
+      role: req.user.role
     };
 
     res.json(userFildsExcludingPassword);

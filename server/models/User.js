@@ -21,6 +21,18 @@ const UserSchema = new Schema({
   date: {
     type: Date,
     default: Date.now
+  },
+  cart: {
+    type: Array,
+    default: []
+  },
+  history: {
+    type: Array,
+    default: []
+  },
+  role: {
+    type: Number,
+    default: 0
   }
 });
 

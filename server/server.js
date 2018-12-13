@@ -2,6 +2,7 @@ const path = require("path");
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const passport = require("passport");
 
 /* ROUTES */
@@ -14,6 +15,9 @@ const port = process.env.PORT || 5555;
 /* BODY PARSER CONFIGURATIONS */
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+/* COOKIE PARSER CONFIGURATIONS */
+app.use(cookieParser());
 
 /* DB Config & Mongoose to Mongo connection */
 const db = require("./config/keys").mongoURI;
