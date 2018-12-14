@@ -9,6 +9,9 @@ const keys = require("../../config/keys");
 /* LOAD INPUT VALIDATION */
 const validateBrandInput = require("../../validation/brand");
 
+/* LOAD MIDDLEWARES */
+const admin = require("../../middleware/admin");
+
 /*
     @route      GET api/products/test
     @desc       Tests products route
@@ -26,6 +29,7 @@ router.get("/test", (req, res) => {
 router.post(
   "/brand",
   passport.authenticate("jwt", { session: false }),
+  admin,
   (req, res) => {
     /* VALIDATE INPUTS */
     const { errors, isValid } = validateBrandInput(req.body);
