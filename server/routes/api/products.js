@@ -22,6 +22,24 @@ router.get("/test", (req, res) => {
 });
 
 /*
+    @route      GET api/products/brand
+    @desc       returns an array of all brands
+    @access     Private
+*/
+router.get(
+  "/brands",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Brand.find()
+      .then(brands => res.json(brands))
+      .catch(err => {
+        errors.serverError = "Server Error";
+        res.status(500).json(errors);
+      });
+  }
+);
+
+/*
     @route      POST api/products/brand
     @desc       Adds a new brand
     @access     Private
