@@ -29,6 +29,7 @@ router.get("/test", (req, res) => {
 router.get(
   "/brands",
   passport.authenticate("jwt", { session: false }),
+  admin,
   (req, res) => {
     Brand.find()
       .then(brands => res.json(brands))
@@ -57,6 +58,51 @@ router.post(
     newBrand
       .save()
       .then(brand => res.json(brand))
+      .catch(err => {
+        errors.serverError = "Server Error";
+        res.status(500).json(errors);
+      });
+  }
+);
+
+/*
+    @route      POST api/products/brand
+    @desc       Edits an existing brand
+    @access     Private
+*/
+router.post(
+  "/brand/:brand_id",
+  passport.authenticate("jwt", { session: false }),
+  admin,
+  (req, res) => {
+    /* VALIDATE INPUTS */
+    const { errors, isValid } = validateBrandInput(req.body);
+    if (!isValid) return res.status(400).json(errors);
+    const { name } = req.body;
+    const brandId = req.params.brand_id;
+
+    Brand.findByIdAndUpdate(brandId, { $set: { name: name } })
+      .then(updatedBrand => res.json(updatedBrand))
+      .catch(err => {
+        errors.serverError = "Server Error";
+        res.status(500).json(errors);
+      });
+  }
+);
+
+/*
+    @route      POST api/products/brand
+    @desc       Edits an existing brand
+    @access     Private
+*/
+router.delete(
+  "/brand/:brand_id",
+  passport.authenticate("jwt", { session: false }),
+  admin,
+  (req, res) => {
+    const brandId = req.params.brand_id;
+    Brand.findByIdAndDelete(brandId)
+      .then(removedBrand => res.json(removedBrand))
       .catch(err => {
         errors.serverError = "Server Error";
         res.status(500).json(errors);
