@@ -2,7 +2,7 @@ import React from "react";
 import { Router, Route, Switch, Link, NavLink } from "react-router-dom";
 import createHistory from "history/createBrowserHistory";
 /* LAYOUT COMPONENTS */
-import Layout from "../components/hoc/Layout";
+import Layout from "../components/layout/Layout";
 import Navbar from "../components/layout/Navbar";
 import Landing from "../components/layout/Landing";
 import Footer from "../components/layout/Footer";
@@ -38,7 +38,6 @@ const AppRouter = () => (
         <PrivateRoute path="/dashboard" component={Dashboard} exact={true} />
         <Route component={NotFoundPage} />
       </Switch>
-      <Footer />
     </Layout>
   </Router>
 );
