@@ -40,6 +40,22 @@ router.get("/", (req, res) => {
     @desc       Gets a product by id
     @access     Public
 */
+router.get("/:product_id", (req, res) => {
+  const productId = req.params.product_id;
+
+  Product.findById(productId)
+    .then(product => {
+      if (!product) {
+        errors.noFound = "Product was not found.";
+        return res.status(404).json(errors);
+      }
+      res.json(product);
+    })
+    .catch(err => {
+      errors.serverError = "Internal server error.";
+      res.status(500).json(errors);
+    });
+});
 
 /*
     @route      Post api/products/
