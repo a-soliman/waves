@@ -36,7 +36,7 @@ router.get("/test", (req, res) => {
 /*
     @route      Post api/products/
     @desc       Addes a new product
-    @access     Private
+    @access     Private & admin
 */
 router.post(
   "/",
@@ -60,7 +60,7 @@ router.post(
 /*
     @route      Post api/products/:product_id
     @desc       Edits an existing product
-    @access     Private
+    @access     Private & admin
 */
 router.post(
   "/:product_id",
@@ -92,8 +92,24 @@ router.post(
 /*
     @route      DELETE api/products/:product_id
     @desc       Deletes a product from the DB
-    @access     Private
+    @access     Private & admin
 */
+
+router.delete(
+  "/:product_id",
+  passport.authenticate("jwt", { session: false }),
+  admin,
+  (req, res) => {
+    const productId = req.params.product_id;
+
+    Product.findByIdAndDelete(productId)
+      .then(deletedProduct => res.json(deletedProduct))
+      .catch(err => {
+        errors.serverError = "Internal server error.";
+        res.status(500).json(errors);
+      });
+  }
+);
 
 /*
     @route      GET api/products/add_all
