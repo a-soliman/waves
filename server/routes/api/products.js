@@ -116,5 +116,16 @@ router.delete(
     @desc       addes a bulk of products
     @access     Private / Admin
 */
+router.get(
+  "/add_all",
+  passport.authenticate("jwt", { session: false }),
+  admin,
+  (req, res) => {
+    const products = require("../../initData/products");
+    Product.insertMany(products)
+      .then(docs => res.json(docs))
+      .catch(err => res.send(err));
+  }
+);
 
 module.exports = router;
