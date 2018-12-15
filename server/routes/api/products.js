@@ -40,8 +40,9 @@ router.get("/", (req, res) => {
     @desc       Gets a product by id
     @access     Public
 */
-router.get("/:product_id", (req, res) => {
+router.get("/id/:product_id", (req, res) => {
   const productId = req.params.product_id;
+  const errors = {};
 
   Product.findById(productId)
     .then(product => {
@@ -51,6 +52,31 @@ router.get("/:product_id", (req, res) => {
       }
       res.json(product);
     })
+    .catch(err => {
+      errors.serverError = "Internal server error.";
+      res.status(500).json(errors);
+    });
+});
+
+/*
+    @route      GET api/products/query
+    @desc       Returns an array of sorted, ordered, with-limit products
+    @access     Public
+*/
+router.get("/query", (req, res) => {
+  const errors = {};
+
+  let order = req.query.order ? req.query.order : "asc";
+  let sortBy = req.query.sortBy ? req.query.sortBy : "_id";
+  let limit = req.query.limit ? parseInt(req.query.limit) : 100;
+
+  Product.find()
+    .populate("brand")
+    .populate("wood")
+    .sort([[sortBy, order]])
+    .limit(limit)
+    .exec()
+    .then(products => res.json(products))
     .catch(err => {
       errors.serverError = "Internal server error.";
       res.status(500).json(errors);
