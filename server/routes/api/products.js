@@ -3,8 +3,14 @@ const router = express.Router();
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
 
+/* LOAD PRODUCT SCHEMA */
+const Product = require("../../models/Product");
+
 /* LOAD MIDDLEWARES */
 const admin = require("../../middleware/admin");
+
+/* LOAD INPUT VALIDATION */
+const validateProductInput = require("../../validation/product");
 
 /*
     @route      GET api/products/test
@@ -32,6 +38,24 @@ router.get("/test", (req, res) => {
     @desc       Addes a new product
     @access     Private
 */
+router.post(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  admin,
+  (req, res) => {
+    /* VALIDATE INPUTS */
+    const { errors, isValid } = validateProductInput(req.body);
+    if (!isValid) return res.status(400).json(errors);
+
+    const newProduct = new Product({ ...req.body })
+      .save()
+      .then(product => res.json(product))
+      .catch(err => {
+        errors.serverError = "Invalid server error.";
+        res.status(500).json(errors);
+      });
+  }
+);
 
 /*
     @route      Post api/products/:product_id
