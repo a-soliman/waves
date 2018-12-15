@@ -26,6 +26,14 @@ router.get("/test", (req, res) => {
     @desc       Returns an array of all products in DB
     @access     Public
 */
+router.get("/", (req, res) => {
+  Product.find({})
+    .then(products => res.json(products))
+    .catch(err => {
+      errors.serverError = "Internal server error.";
+      res.status(500).json(errors);
+    });
+});
 
 /*
     @route      GET api/products/:product_id
