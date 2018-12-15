@@ -51,7 +51,7 @@ router.post(
       .save()
       .then(product => res.json(product))
       .catch(err => {
-        errors.serverError = "Invalid server error.";
+        errors.serverError = "Internal server error.";
         res.status(500).json(errors);
       });
   }
@@ -62,6 +62,32 @@ router.post(
     @desc       Edits an existing product
     @access     Private
 */
+router.post(
+  "/:product_id",
+  passport.authenticate("jwt", { session: false }),
+  admin,
+  (req, res) => {
+    /* VALIDATE INPUTS */
+    const { errors, isValid } = validateProductInput(req.body);
+    if (!isValid) return res.status(400).json(errors);
+
+    const productId = req.params.product_id;
+    const updates = { ...req.body };
+    Product.findById(productId).then(product => {
+      for (const updatedField in updates) {
+        if (product[updatedField])
+          product[updatedField] = updates[updatedField];
+      }
+      product
+        .save()
+        .then(updatedProduct => res.json(updatedProduct))
+        .catch(err => {
+          errors.serverError = "Internal server error.";
+          res.status(500).json(errors);
+        });
+    });
+  }
+);
 
 /*
     @route      DELETE api/products/:product_id
