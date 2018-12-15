@@ -15,9 +15,7 @@ export const PublicRoute = ({
       ) : rest.path === "/" ? (
         <Component {...props} />
       ) : (
-        <div className="container">
-          <Component {...props} />
-        </div>
+        <Component {...props} />
       )
     }
   />

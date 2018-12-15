@@ -2,9 +2,13 @@ import React from "react";
 import { Router, Route, Switch, Link, NavLink } from "react-router-dom";
 import createHistory from "history/createBrowserHistory";
 /* LAYOUT COMPONENTS */
+import Layout from "../components/hoc/Layout";
 import Navbar from "../components/layout/Navbar";
 import Landing from "../components/layout/Landing";
 import Footer from "../components/layout/Footer";
+
+/* HOME  COMPONENTS */
+import Home from "../components/Home";
 
 /* AUTH COMPONENTS */
 import Register from "../components/auth/Register";
@@ -21,12 +25,11 @@ export const history = createHistory();
 
 const AppRouter = () => (
   <Router history={history}>
-    <div>
-      <Navbar />
+    <Layout>
       <Switch>
         <PublicRoute
           path="/"
-          component={Landing}
+          component={Home}
           exact={true}
           no_container={true}
         />
@@ -36,7 +39,7 @@ const AppRouter = () => (
         <Route component={NotFoundPage} />
       </Switch>
       <Footer />
-    </div>
+    </Layout>
   </Router>
 );
 
