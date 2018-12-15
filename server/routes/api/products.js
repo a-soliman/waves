@@ -28,6 +28,8 @@ router.get("/test", (req, res) => {
 */
 router.get("/", (req, res) => {
   Product.find({})
+    .populate("brand")
+    .populate("wood")
     .then(products => res.json(products))
     .catch(err => {
       errors.serverError = "Internal server error.";
@@ -45,6 +47,8 @@ router.get("/id/:product_id", (req, res) => {
   const errors = {};
 
   Product.findById(productId)
+    .populate("brand")
+    .populate("wood")
     .then(product => {
       if (!product) {
         errors.noFound = "Product was not found.";
