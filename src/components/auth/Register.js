@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import classnames from "classnames";
 import { register } from "../../actions/auth";
 import GoogleButton from "../ui/GoogleButton";
+import Button from "../ui/Button";
 import Form from "../ui/Form";
 
 class Register extends Component {
@@ -119,17 +121,18 @@ class Register extends Component {
     return (
       <div className="register full-height">
         <div className="container">
-          <div className="row">
+          <div className="row register_login_container">
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Sign Up</h1>
-              <p className="lead text-center">
-                Create your DevConnector account
-              </p>
               <Form
                 fields={[name, email, password, passwordConfirmation]}
                 onChangleHandler={this.onFormUpdate}
                 onSubmitHandler={this.onFormSubmit}
+                submitButtonTitle="Register"
               />
+              <p className="text-muted text-right float-right">
+                Already registered? Go to <Link to="login">SignIn</Link> page!
+              </p>
               <div className="text-info rounded-circle border border-info my-5 or">
                 Or
               </div>
