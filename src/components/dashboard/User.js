@@ -17,11 +17,20 @@ const links = [
 ];
 
 const User = props => {
+  const generateLinks = links =>
+    links.map((item, i) => (
+      <Link key={i} to={item.linkTo}>
+        {item.name}
+      </Link>
+    ));
   return (
     <div className="container">
-      <div className="user_container">
-        <div className="user_left_nav">Navigation</div>
-        <div className="user_right">{props.children}</div>
+      <div className="user_container row">
+        <div className="user_left_nav col-md-3">
+          <h2>My account</h2>
+          <div className="links">{generateLinks(links)}</div>
+        </div>
+        <div className="user_right col-md-9">{props.children}</div>
       </div>
     </div>
   );
