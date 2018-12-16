@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import classnames from "classnames";
 import { login } from "../../actions/auth";
 import Form from "../ui/Form";
+import Button from "../ui/Button";
 import GoogleButton from "../ui/GoogleButton";
 
 class Login extends Component {
@@ -95,24 +96,36 @@ class Login extends Component {
   render() {
     const { email, password } = this.state.formData;
     return (
-      <div className="login full-height">
+      <div className="page_wrapper">
         <div className="container">
-          <div className="row">
-            <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Log In</h1>
-              <p className="lead text-center">
-                Sign in to your DevConnector account
+          <div className="register_login_container row">
+            <div className="left col-md-6">
+              <h1>New Customers</h1>
+              <p>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Perspiciatis, sapiente magnam fugiat quis corporis aut libero ut
+                eligendi repellat? Ducimus veniam vero facilis saepe eligendi
+                sapiente ut qui quidem unde.
               </p>
+              <Button
+                type="default"
+                title="Create an account"
+                linkTo="/register"
+                addStyles={{
+                  margin: "10px 0 0 0"
+                }}
+              />
+            </div>
+            <div className="right col-md-6">
+              <h2>Registered customers</h2>
+              <p>If you have an account please login,</p>
+
               <Form
                 fields={[email, password]}
                 onChangleHandler={this.onFormUpdate}
                 onSubmitHandler={this.onFormSubmit}
+                submitButtonTitle="Login"
               />
-
-              <div className="text-info rounded-circle border border-info my-5 or">
-                Or
-              </div>
-              <GoogleButton link="/api/users/google" text="Login with Google" />
             </div>
           </div>
         </div>
