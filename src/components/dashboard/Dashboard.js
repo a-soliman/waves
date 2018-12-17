@@ -5,7 +5,7 @@ import Button from "../ui/Button";
 
 class Dashboard extends Component {
   render() {
-    const { name } = this.props.auth.user;
+    const { name, email } = this.props.auth.user;
     return (
       <User>
         <div>
@@ -13,6 +13,7 @@ class Dashboard extends Component {
             <h1>User information</h1>
             <div>
               <span>{name}</span>
+              <span>{email}</span>
             </div>
             <Button
               type="default"
