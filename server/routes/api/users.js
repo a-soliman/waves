@@ -92,7 +92,12 @@ router.post("/login", (req, res) => {
         return res.status(401).json(errors);
       }
 
-      const payload = { id: user.id, name: user.name, avatar: user.avatar };
+      const payload = {
+        id: user.id,
+        name: user.name,
+        avatar: user.avatar,
+        email: user.email
+      };
       jwt.sign(payload, keys.secretOrKey, { expiresIn: 3600 }, (err, token) => {
         if (err) {
           errors.serverError = "Internal server error.";
