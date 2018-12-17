@@ -43,7 +43,16 @@ class Header extends Component {
 
   defaultLink = (item, i) => {
     let linkTemplate;
-    if (item.name === "Logout") {
+    const user = this.props.auth.user;
+
+    if (item.name === "My Cart") {
+      linkTemplate = (
+        <div key={i} className="cart_link">
+          <span>{user.cart ? user.cart.length : 0}</span>
+          <Link to={item.linkTo}>{item.name}</Link>
+        </div>
+      );
+    } else if (item.name === "Logout") {
       linkTemplate = (
         <Link to="/login" key={i} onClick={this.props.logout}>
           {item.name}
@@ -76,7 +85,6 @@ class Header extends Component {
   };
   render() {
     const { isAuthenticated, user } = this.props.auth;
-    console.log(user);
     return (
       <header className="bck_b_light">
         <div className="container">
