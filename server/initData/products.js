@@ -130,7 +130,7 @@ const products = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
     price: 1,
-    brand: "5c13e2c1b50abca4b07abf94",
+    brand: "5c13ded40b0522931fa738ed",
     shipping: true,
     available: false,
     wood: "5b2c1c0981e781b44909627d",
@@ -144,7 +144,7 @@ const products = [
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ",
     price: 1,
-    brand: "5c13e2c1b50abca4b07abf95",
+    brand: "5c13ded40b0522931fa738ed",
     shipping: true,
     available: true,
     wood: "5b2c1c81255983b4795f8fda",
