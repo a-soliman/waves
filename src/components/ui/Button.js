@@ -9,7 +9,7 @@ const Button = props => {
       case "default":
         template = (
           <Link
-            className="link_default"
+            className={!props.altClass ? "link_default" : props.altClass}
             to={props.linkTo}
             style={{ ...props.addStyles }}
           >
@@ -29,6 +29,20 @@ const Button = props => {
           </button>
         );
         break;
+
+      case "bag_link":
+        template = (
+          <div
+            className="bag_link"
+            onClick={() => {
+              props.runAction();
+            }}
+          >
+            <i className="fa fa-shopping-bag" />
+          </div>
+        );
+        break;
+
       default:
         template = "";
     }
