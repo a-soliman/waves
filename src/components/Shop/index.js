@@ -6,14 +6,31 @@ import { frets } from "../ui/FixedCategories";
 import { getBrands, getWoods } from "../../actions/products";
 
 class Shop extends Component {
-  state = {};
+  state = {
+    grid: "",
+    limit: 6,
+    skip: 0,
+    filters: {
+      brand: [],
+      frets: [],
+      wood: [],
+      price: []
+    }
+  };
+
   componentDidMount = () => {
     this.props.getBrands();
     this.props.getWoods();
   };
 
-  handleFilters = (filters, category) => {};
+  handleFilters = (filters, category) => {
+    const newFilters = { ...this.state.filters };
+    newFilters[category] = filters;
+
+    this.setState({ filters: newFilters });
+  };
   render() {
+    console.log(this.state.filters);
     const { products } = this.props;
     return (
       <div>
