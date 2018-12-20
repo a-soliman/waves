@@ -35,7 +35,9 @@ class CollapseCheckbox extends Component {
 
     if (currentIndex === -1) checked.push(id);
     else checked.splice(currentIndex, 1);
-    this.setState({ checked });
+    this.setState({ checked }, () => {
+      this.props.handleFilters(checked);
+    });
   };
 
   renderList = () =>
