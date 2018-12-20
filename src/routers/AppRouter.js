@@ -17,6 +17,9 @@ import Login from "../components/auth/Login";
 /* DASHBOARD COMPONENTS */
 import Dashboard from "../components/dashboard/Dashboard";
 
+/* SHOP COMPONENTS */
+import Shop from "../components/Shop";
+
 import NotFoundPage from "../components/NotFoundPage";
 import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
@@ -35,6 +38,7 @@ const AppRouter = () => (
         />
         <PublicRoute path="/register" component={Register} exact={true} />
         <PublicRoute path="/login" component={Login} exact={true} />
+        <PublicRoute path="/shop" component={Shop} exact={true} />
         <PrivateRoute path="/dashboard" component={Dashboard} exact={true} />
         <Route component={NotFoundPage} />
       </Switch>
