@@ -2,17 +2,17 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PageTop from "../ui/PageTop";
 import CollapseCheckbox from "../ui/CollapseCheckbox";
+import { frets } from "../ui/FixedCategories";
 import { getBrands, getWoods } from "../../actions/products";
 
 class Shop extends Component {
+  state = {};
   componentDidMount = () => {
     this.props.getBrands();
     this.props.getWoods();
   };
 
-  handleFilters = (filters, type) => {
-    console.log("tiggered handleFilters...");
-  };
+  handleFilters = (filters, category) => {};
   render() {
     const { products } = this.props;
     return (
@@ -26,6 +26,20 @@ class Shop extends Component {
                 title="Brands"
                 list={products.brands}
                 handleFilters={filters => this.handleFilters(filters, "brand")}
+              />
+
+              <CollapseCheckbox
+                initState={false}
+                title="Frets"
+                list={frets}
+                handleFilters={filters => this.handleFilters(filters, "frets")}
+              />
+
+              <CollapseCheckbox
+                initState={true}
+                title="Woods"
+                list={products.woods}
+                handleFilters={filters => this.handleFilters(filters, "wood")}
               />
             </div>
 
