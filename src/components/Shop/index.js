@@ -4,6 +4,7 @@ import PageTop from "../ui/PageTop";
 import CollapseCheckbox from "../ui/CollapseCheckbox";
 import CollapseRadio from "../ui/CollapseRadio";
 import { frets, price } from "../ui/FixedCategories";
+import LoadMoreCards from "./LoadMoreCards";
 import { getProductsToShop, getBrands, getWoods } from "../../actions/products";
 
 class Shop extends Component {
@@ -101,7 +102,20 @@ class Shop extends Component {
               />
             </div>
 
-            <div className="left col-md-9">right</div>
+            <div className="left col-md-9">
+              <div className="shop_options">
+                <div className="shop_grids clear">Grids</div>
+              </div>
+              <div>
+                <LoadMoreCards
+                  grid={this.state.grid}
+                  limit={this.state.limit}
+                  size={products.toShopSize}
+                  products={products.toShop}
+                  loadMore={() => console.log("Load mroe!")}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
