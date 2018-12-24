@@ -10,6 +10,7 @@ const users = require("./routes/api/users");
 const products = require("./routes/api/products");
 const brands = require("./routes/api/brands");
 const woods = require("./routes/api/woods");
+const shop = require("./routes/api/shop");
 
 /* EXPRESS APP */
 const app = express();
@@ -43,6 +44,7 @@ app.use("/api/users", users);
 app.use("/api/products", products);
 app.use("/api/brands", brands);
 app.use("/api/woods", woods);
+app.use("/api/shop", shop);
 
 /* SERVE REACT APP FOR ALL ROUTES */
 app.get("*", (req, res) => {
