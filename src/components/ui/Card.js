@@ -2,13 +2,6 @@ import React, { Component } from "react";
 import Button from "./Button";
 
 class Card extends Component {
-  renderCardImages = images => {
-    if (images.length > 0) {
-      return images[0].url;
-    } else {
-      return "/images/image_not_availble.png";
-    }
-  };
   render() {
     const props = this.props;
     return (
@@ -16,7 +9,10 @@ class Card extends Component {
         <div
           className="image"
           style={{
-            background: `url(${this.renderCardImages(props.images)}) np-repeat`
+            background:
+              props.images.length > 0
+                ? props.images[0].url
+                : "url(/images/image_not_availble.png)"
           }}
         />
         <div className="action_container">
