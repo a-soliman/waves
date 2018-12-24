@@ -43,7 +43,6 @@ export default (state = initalState, action) => {
       };
 
     case GET_PRODUCTS_TO_SHOP:
-      console.log(action);
       return {
         ...state,
         toShop: action.payload.products,

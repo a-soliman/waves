@@ -71,7 +71,7 @@ export const getProductsToShop = ({
         type: GET_PRODUCTS_TO_SHOP,
         payload: {
           size: res.data.size,
-          products: res.data.products
+          products: [...previousState, ...res.data.products]
         }
       });
     })

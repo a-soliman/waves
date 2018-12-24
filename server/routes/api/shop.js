@@ -40,7 +40,6 @@ router.post("/", (req, res) => {
     .limit(limit)
     .exec((err, products) => {
       if (err) return res.status(400).send(err);
-      console.log(products);
       res.json({
         size: products.length,
         products: products
