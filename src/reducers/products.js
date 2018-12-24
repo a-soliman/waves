@@ -3,7 +3,8 @@ import {
   GET_PRODUCTS_BY_ARRIVAL,
   GET_PRODUCTS_BY_SELL,
   GET_BRANDS,
-  GET_WOODS
+  GET_WOODS,
+  GET_PRODUCTS_TO_SHOP
 } from "../actions/types";
 import isEmpty from "../validation/is-empty";
 
@@ -11,7 +12,8 @@ const initalState = {
   bySell: [],
   byArrival: [],
   brands: [],
-  woods: []
+  woods: [],
+  toShop: []
 };
 
 export default (state = initalState, action) => {
@@ -38,6 +40,14 @@ export default (state = initalState, action) => {
       return {
         ...state,
         woods: action.payload
+      };
+
+    case GET_PRODUCTS_TO_SHOP:
+      console.log(action);
+      return {
+        ...state,
+        toShop: action.payload.products,
+        toShopSize: action.payload.size
       };
 
     default:
