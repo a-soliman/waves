@@ -4,7 +4,8 @@ import {
   GET_PRODUCTS_BY_ARRIVAL,
   GET_PRODUCTS_BY_SELL,
   GET_BRANDS,
-  GET_WOODS
+  GET_WOODS,
+  GET_PRODUCTS_TO_SHOP
 } from "./types";
 import { history } from "../routers/AppRouter";
 
@@ -44,14 +45,40 @@ export const getProductsBySell = () => dispatch => {
 
 export const getBrands = () => dispatch => {
   axios
-    .get("api/brands")
+    .get("/api/brands")
     .then(res => dispatch({ type: GET_BRANDS, payload: res.data }))
     .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
 };
 
 export const getWoods = () => dispatch => {
   axios
-    .get("api/woods")
+    .get("/api/woods")
     .then(res => dispatch({ type: GET_WOODS, payload: res.data }))
     .catch(err => dispatch({ type: GET_ERRORS, payload: err.response.data }));
+};
+
+export const getProductsToShop = ({
+  skip,
+  limit,
+  filters = [],
+  previousState = []
+}) => dispatch => {
+  const data = { skip, limit, filters };
+  axios
+    .post(`/api/shop`, data)
+    .then(res => {
+      dispatch({
+        type: GET_PRODUCTS_TO_SHOP,
+        payload: {
+          size: res.data.size,
+          products: res.data.products
+        }
+      });
+    })
+    .catch(err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      });
+    });
 };
