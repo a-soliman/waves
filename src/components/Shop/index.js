@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PageTop from "../ui/PageTop";
 import CollapseCheckbox from "../ui/CollapseCheckbox";
-import { frets } from "../ui/FixedCategories";
-import { getBrands, getWoods } from "../../actions/products";
+import CollapseRadio from "../ui/CollapseRadio";
+import { frets, price } from "../ui/FixedCategories";
+import { getProductsToShop, getBrands, getWoods } from "../../actions/products";
 
 class Shop extends Component {
   state = {
@@ -21,14 +22,47 @@ class Shop extends Component {
   componentDidMount = () => {
     this.props.getBrands();
     this.props.getWoods();
+    this.props.getProductsToShop({
+      skip: this.state.skip,
+      limit: this.state.limit,
+      filters: this.state.filters
+    });
+  };
+
+  handlePrice = value => {
+    const data = price;
+    let array = [];
+
+    for (let key in data) {
+      if (data[key]._id === parseInt(value, 10)) {
+        array = data[key].array;
+      }
+    }
+    return array;
   };
 
   handleFilters = (filters, category) => {
     const newFilters = { ...this.state.filters };
     newFilters[category] = filters;
 
+    if (category === "price") {
+      let priceValues = this.handlePrice(filters);
+      newFilters[category] = priceValues;
+    }
+
+    this.showFilteedResults(newFilters);
     this.setState({ filters: newFilters });
   };
+
+  showFilteedResults = filters => {
+    this.props.getProductsToShop({
+      skip: 0,
+      limit: this.state.limit,
+      filters
+    });
+    this.setState({ skip: 0 });
+  };
+
   render() {
     console.log(this.state.filters);
     const { products } = this.props;
@@ -53,10 +87,17 @@ class Shop extends Component {
               />
 
               <CollapseCheckbox
-                initState={true}
+                initState={false}
                 title="Woods"
                 list={products.woods}
                 handleFilters={filters => this.handleFilters(filters, "wood")}
+              />
+
+              <CollapseRadio
+                initState={true}
+                title="price"
+                list={price}
+                handleFilters={filters => this.handleFilters(filters, "price")}
               />
             </div>
 
@@ -73,7 +114,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getBrands: () => dispatch(getBrands()),
-  getWoods: () => dispatch(getWoods())
+  getWoods: () => dispatch(getWoods()),
+  getProductsToShop: data => dispatch(getProductsToShop(data))
 });
 
 export default connect(
