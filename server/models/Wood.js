@@ -1,13 +1,14 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose');
 
-const WoodSchema = new Schema({
-  name: {
-    type: String,
-    required: true,
-    unique: true,
-    maxLength: 100
-  }
+const woodSchema = mongoose.Schema({
+    name:{
+        required: true,
+        type: String,
+        unique: 1,
+        maxlength: 100
+    }
 });
 
-module.exports = Wood = mongoose.model("woods", WoodSchema);
+const Wood = mongoose.model('Wood',woodSchema);
+
+module.exports = { Wood }
